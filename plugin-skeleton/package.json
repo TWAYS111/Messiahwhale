@@ -1,0 +1,44 @@
+{
+  "name": "@dsh-external/dsh-whale-gospel",
+  "version": "0.1.0-skeleton",
+  "description": "Whale Gospel for DSH: versioned gospel persona layer + AI-flavor lint + pre-send gate (QQ) + duty/report adapter (Bilibili)",
+  "private": true,
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./preset": "./preset/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "preset",
+    "cordis.patch.yml",
+    "config.example.json"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "*",
+    "cordis": ">=4.0.0-rc <5"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    },
+    "cordis": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "verify": "node --check lib/index.js && node --check lib/gospel.mjs && node --check lib/lint.mjs && node --check preset/index.mjs && node test/smoke.mjs",
+    "test": "node test/smoke.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

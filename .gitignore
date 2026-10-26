@@ -1,0 +1,27 @@
+# Node
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# 构建 / 临时产物
+dist/
+build/
+*.tgz
+*.log
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 本地配置与密钥
+.env
+.env.*
+*.pem
+*.key
+config.local.json

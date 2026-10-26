@@ -1,0 +1,55 @@
+{
+  "_comment": "whale-gospel 示例配置（host 插件 + preset 插件共用同一套键名，各自只读自己关心的）。实际加载时：host 用 profile cordis.patch.yml 的 config；preset 用 preset 条目里的 config。",
+
+  "enabled": true,
+
+  "gospelRoot": "D:/鲸鱼/whale-gospel/gospel",
+  "gospelRootFallbacks": [
+    "$DSH_HOME/whale-gospel/gospel",
+    "<plugin>/../../gospel",
+    "<plugin>/gospel"
+  ],
+
+  "strength": "standard",
+  "adapter": "qq-group",
+
+  "injectMode": "off",
+  "_injectMode": "off | section（section 才会在宿主进程注册全局提示词段；headless profile 单独进程，安全）",
+
+  "sectionOrder": 10250,
+  "_sectionOrder": "> dsh-system-prompt 的 DEPLOYMENT_PERSONA_SUFFIX(10200) ⇒ 排在系统提示词最后，recency 最高",
+
+  "roleCard": {
+    "enabled": false,
+    "targetPath": "D:/鲸鱼/qq-bridge/roles/弥赛鲸.md",
+    "position": "tail",
+    "marker": "whale-gospel"
+  },
+  "_roleCard": "可选：把注入块以受管段落写进角色卡/AGENTS.md。⚠️ QQ 桥接对角色卡有 maxInjectChars=20000 截断，写 tail 会被截掉；QQ 推荐走 bridge patch 的独立 gospel 通道（见 docs/DSH-PLUGIN.md §4.2）",
+
+  "lint": {
+    "threshold": 36,
+    "maxMessageChars": 60
+  },
+
+  "gate": {
+    "mode": "block",
+    "_mode": "off | warn（只记录）| block（deny + 改写建议）",
+    "tools": [
+      "mcp__snowluma__qq_send_message",
+      "mcp__snowluma__qq_send_burst",
+      "mcp__snowluma__qq_reply",
+      "mcp__snowluma__qq_send_group_message",
+      "mcp__snowluma__qq_send_private_message"
+    ],
+    "threshold": 36,
+    "maxDenyPerMinute": 3,
+    "statsFile": "$DSH_HOME/whale-gospel/gate-stats.jsonl"
+  },
+
+  "bili": {
+    "dutyPath": "$DSH_HOME/bili-duty/duty.md",
+    "reportDir": "$DSH_HOME/bili-duty/out",
+    "outDir": "$DSH_HOME/bili-duty/digest"
+  }
+}

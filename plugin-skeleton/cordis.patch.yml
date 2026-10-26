@@ -1,0 +1,36 @@
+# whale-gospel host bundle patch.
+#
+# 这一层只挂「宿主插件」：gospel 资产读取 / 注入块生成 / lint / 报告适配。
+# 它【不】注册全局提示词（injectMode: off），因此装进任何 profile 都不会静默改所有会话。
+#
+# 用法（profile 的 cordis.patch.yml 里追加）：
+#   - insert:
+#       - id: whale-gospel
+#         name: '@dsh-external/dsh-whale-gospel'
+#         config:
+#           gospelRoot: 'D:/鲸鱼/whale-gospel/gospel'
+#           strength: standard
+#           adapter: qq-group
+#           injectMode: off
+#
+# QQ 人格补丁层是另一端：preset 里单独加一行 entry（见 docs/DSH-PLUGIN.md §3）：
+#   - id: gospel-section
+#     name: '@dsh-external/dsh-whale-gospel/preset'
+#     config: { strength: standard, adapter: qq-group, gateMode: 'block' }
+#
+# 头less（刷B站）profile 里则把 injectMode 改成 section：
+#   - id: whale-gospel
+#     name: '@dsh-external/dsh-whale-gospel'
+#     config: { injectMode: section, strength: standard, adapter: bili-comment }
+
+- insert:
+    - id: whale-gospel
+      name: '@dsh-external/dsh-whale-gospel'
+      config:
+        enabled: true
+        gospelRoot: ''
+        strength: standard
+        adapter: qq-group
+        injectMode: off
+        lintThreshold: 36
+        allowWrite: false

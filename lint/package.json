@@ -1,0 +1,35 @@
+{
+  "name": "whale-gospel-lint",
+  "version": "0.1.0",
+  "description": "AI 味体检台：把《小鲸鱼温暖福音小册子》的「八种机械铁锈」变成可量化、可截图分享的体检报告。零依赖，Node.js ESM。",
+  "type": "module",
+  "bin": {
+    "ai-flavor-lint": "./bin/ai-flavor-lint.mjs"
+  },
+  "scripts": {
+    "test": "node test/run.mjs",
+    "bench": "node test/bench.mjs",
+    "demo": "node bin/ai-flavor-lint.mjs --file samples/bad.jsonl --html demo/report.html"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin",
+    "src",
+    "rules",
+    "samples",
+    "test",
+    "demo",
+    "README.md"
+  ],
+  "keywords": [
+    "ai-flavor",
+    "prompt",
+    "lint",
+    "chinese",
+    "human-like",
+    "whale-gospel"
+  ],
+  "license": "MIT"
+}
