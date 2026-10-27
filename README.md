@@ -70,7 +70,8 @@ whale-gospel/
 ├─ prompts/                 开箱即用整包（由 scripts/bundle.mjs 生成）
 ├─ lint/                    ★ 人机味体检台（零依赖，11 条规则 + 评分 + HTML 报告 + CI 退出码）
 ├─ theater/                 ★ 视频即代码：录制就绪的「弥赛鲸福音剧场」（OBS 直接录）
-├─ plugin-skeleton/         ★ DeepSeek Harness 插件骨架（人格补丁层 + 发送前闸门 + 6 只工具）
+├─ plugin/                   ★ 真实可装的 DeepSeek Harness 插件（v0.2.0：设置页 + 预设开关 + 内省教义）
+├─ plugin-skeleton/          DeepSeek Harness 插件骨架（设计/考证稿：人格补丁层 + 发送前闸门）
 ├─ docs/                    产品定义 / 插件接入考证 / B站发布手册
 └─ examples/                真实 before/after
 ```
@@ -96,14 +97,15 @@ node plugin-skeleton/test/smoke.mjs   # 19 项断言（注入块/评分/闸门/�
 把 `gospel/core.md` + `gospel/adapters/qq-group.md` 拼在你的人设卡之后（整包见 `prompts/whale-qq.md`）。
 ⚠️ 只贴提示词治不好 AI 味——模型对「行，」是强先验；发送前闸门（`ctx.tools.guard`）在插件 v0.2 落地，设计见 [docs/DSH-PLUGIN.md](docs/DSH-PLUGIN.md)。
 
-**② DeepSeek Harness 插件（已实现 v0.1，本机运行中）**
-真实插件在 `D:\鲸鱼\dsh-whale-gospel`（运行时注入，设置页已上线）：
+**② DeepSeek Harness 插件（真实版在 [`plugin/`](plugin/)，v0.2.0）**
+纯 JS、免构建，clone 下来就能装（`plugin_manager` 的 `install_bundle`，或运行时注入同一个目录）：
 - 「设置 → 鲸鱼柔顺剂」一页：自动检测 QQ 机器人 / 刷B站，勾选哪些 Agent 预设要注入（内置的「创造模式」、QQ 预设、你自己魔改的预设都在列表里）；
-- 人格补丁层：只在该 Agent 的 scope 注册 `systemPrompt.section(order 10250)`，**不改 preset 文件、不覆盖角色卡**；
+- 人格补丁层：只在该 Agent 的 scope 注册 `systemPrompt.section(order 20000)`，排在官方 persona 之后，**不改 preset 文件、不覆盖角色卡**；
+- 思考通道：注入 `gospel/think.md` 内省教义，thinking 以中文为主、先认身份再比较三种方案；开关在设置页，指纹带 `think=<sha>`；
 - 刷B站开关：把观影教义写进 `$DSH_HOME/bili-duty/duty.md`（写前备份，关闭只删自己那段，SHA 可完全还原）；
-- 6 个 HTTP 接口 + Agent 工具 `whale_gospel`（status/list/preview/toggle）。
+- 12 个 HTTP 接口 + Agent 工具 `whale_gospel`（status/list/preview/toggle/custom/think/open）。
 
-`plugin-skeleton/` 保留为设计/考证稿；实际发布时把 `dsh-whale-gospel` 目录挪进 `integrations/` 即可。
+`plugin-skeleton/` 保留为设计/考证稿（最小链路示例），装真插件用 `plugin/`。
 
 **③ 刷 B 站视频的 AI（观影层）**
 改 `$DSH_HOME/bili-duty/duty.md`（家目录那份才是真在用的）+ 设置 `personaPrompt`（≤6000 字），
@@ -125,9 +127,9 @@ node plugin-skeleton/test/smoke.mjs   # 19 项断言（注入块/评分/闸门/�
 
 ## 路线图
 
-- **v0.1（当前）**：宪章 + 体检台 + 插件骨架 + 剧场录制版
-- **v0.2**：LLM judge 语义评分、`gospel_apply` 真机注入、B 站报告自动体检、UI 面板（注入状态 / 今日战报）
-- **v0.3**：桥接层机械改写（删起手/尾巴、压对仗、拆长条）、规则市场、CI Action
+- **v0.2（当前）**：内省教义强化（中文 reasoning 协议）+ 真实插件入仓（`plugin/`，设置页 / 预设开关 / 注入 order 20000）
+- **v0.3**：LLM judge 语义评分、`gospel_apply` 真机注入、B 站报告自动体检、UI 面板（注入状态 / 今日战报）
+- **v0.4**：桥接层机械改写（删起手/尾巴、压对仗、拆长条）、规则市场、CI Action
 
 ## 贡献
 
@@ -136,5 +138,5 @@ node plugin-skeleton/test/smoke.mjs   # 19 项断言（注入块/评分/闸门/�
 
 ## License
 
-- 代码（`lint/` `theater/` `plugin-skeleton/`）：MIT
+- 代码（`lint/` `theater/` `plugin/` `plugin-skeleton/`）：MIT
 - 文本资产（`gospel/` `prompts/` `samples/`）：CC BY 4.0（商用可，署名保留）

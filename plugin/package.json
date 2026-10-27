@@ -1,0 +1,37 @@
+{
+  "name": "@local/dsh-whale-gospel",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "鲸鱼柔顺剂：按 Agent 预设逐个开关，把去 AI 味人格提示词注入到选中的预设；自动检测 QQ 机器人与刷B站插件",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "gospel",
+    "assets",
+    "locale",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-settings-plugins"
+      ]
+    }
+  }
+}

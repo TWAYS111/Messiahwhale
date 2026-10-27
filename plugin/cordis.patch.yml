@@ -1,0 +1,7 @@
+# 鲸鱼柔顺剂 bundle 层：插入 host 插件行（路由 + 工具 + agent/created 注入器）。
+# 界面半端由 package.json 的 dsh.client 声明，注册到「设置 · 鲸鱼柔顺剂」一页。
+- insert:
+    - id: whale-gospel
+      name: '@local/dsh-whale-gospel'
+      config:
+        sectionOrder: 20000
